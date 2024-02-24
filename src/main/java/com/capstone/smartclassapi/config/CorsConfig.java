@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
-
 @Component
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class CorsConfig implements Filter {
@@ -27,7 +26,5 @@ public class CorsConfig implements Filter {
         } else {
             filterChain.doFilter(servletRequest, servletResponse);
         }
-
     }
-
 }

@@ -1,7 +1,7 @@
 spring:
   config:
-    import:
-      file: ./application-local.yaml
+    import: application-local.yaml
+
   datasource:
     url: ${DATABASE_URL}
     username: ${DATABASE_USERNAME}
@@ -35,3 +35,6 @@ application:
       expiration: ${EXPIRATION}
       refresh-token:
         expiration: ${REFRESH_TOKEN_EXPIRATION}
+server:
+  servlet:
+    context-path: /api/v1
