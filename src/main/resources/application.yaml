@@ -37,4 +37,5 @@ application:
         expiration: ${REFRESH_TOKEN_EXPIRATION}
 server:
   servlet:
-    context-path: /api/v1
+    context-path: ${CONTEXT_PATH}
+  port: 8003
