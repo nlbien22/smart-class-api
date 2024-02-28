@@ -39,3 +39,7 @@ server:
   servlet:
     context-path: /api/v1
   port: 8003
+  ssl:
+    key-store: classpath:keystore/smart-class-api.jks
+    key-store-type: JKS
+    key-store-password: ${KEY_PASSWORD}
