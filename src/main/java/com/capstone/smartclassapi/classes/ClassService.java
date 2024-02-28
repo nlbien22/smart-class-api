@@ -5,10 +5,15 @@ import com.capstone.smartclassapi.exception.ResourceNotFoundException;
 import com.capstone.smartclassapi.exception.ResponseMessage;
 import com.capstone.smartclassapi.user.UserService;
 import com.capstone.smartclassapi.users_classes.UsersClassesService;
+import com.capstone.smartclassapi.validations.CommonValidation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -28,11 +33,39 @@ public class ClassService {
                 .build();
     }
 
-    public ResponseMessage getAllClasses() {
-        List<Class> classes = classRepository.findAllClassOfUser(userService.getCurrentUserId());
+    public Sort getSorting(String sortType, String sortValue) {
+        if (sortType == null || sortType.equals("")) {
+            sortValue = "created_at";
+            sortType = "desc";
+        }
+        Sort sorting = Sort.by(sortValue);
+
+        if (sortType != null) {
+            sorting = sortType.equalsIgnoreCase("desc") ? sorting.descending() : sorting.ascending();
+        }
+
+        return sorting;
+    }
+
+    public ResponseMessage getAllClasses(int page, int size, String keyword, String sortType, String sortValue)
+    {
+        CommonValidation.validatePageAndSize(page, size);
+
+        Sort sorting = getSorting(sortType, sortValue);
+        Pageable pageable = PageRequest.of(page, size, sorting);
+        List<Class> listClasses = classRepository.findAllClassOfUserByName(
+                userService.getCurrentUserId(),
+                CommonValidation.escapeSpecialCharacters(keyword.trim()),
+                pageable
+        );
+
         return ResponseMessage.builder()
                 .status(200)
-                .data(classes)
+                .data(listClasses)
+                .additional(Map.of(
+                        "total", classRepository.countByClassName(userService.getCurrentUserId(), keyword)
+                        )
+                )
                 .build();
     }
 
