@@ -25,7 +25,7 @@ import io.swagger.v3.oas.annotations.servers.Server;
                 url = "https://localhost:8003/api/v1"
         ), @Server(
                 description = "Production Test",
-                url = "https://https://smartclass.id.vn/:8003/api/v1"
+                url = "https://smartclass.id.vn:8003/api/v1"
         )},
         security = {@SecurityRequirement(
                 name = "bearerAuth"
