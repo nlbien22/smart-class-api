@@ -14,7 +14,7 @@ import io.swagger.v3.oas.annotations.servers.Server;
                 contact = @Contact(
                         name = "GradeXpert",
                         email = "nlbien.22@gmail.com",
-                        url = "http://localhost:8003/"
+                        url = "https://localhost:8003/"
                 ),
                 description = "That la vai ",
                 title = "GradeXpert API",
@@ -22,7 +22,7 @@ import io.swagger.v3.oas.annotations.servers.Server;
         ),
         servers = {@Server(
                 description = "Local Test",
-                url = "http://localhost:8003/api/v1"
+                url = "https://localhost:8003/api/v1"
         ), @Server(
                 description = "Production Test",
                 url = "https://https://smartclass.id.vn/:8003/api/v1"
