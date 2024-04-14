@@ -57,7 +57,7 @@ public class KeyServiceImp implements KeyService {
         KeyEntity keyEntity = KeyEntity.builder()
                 .keyCode(request.getKeyCode())
                 .typeKey(request.getTypeKey())
-                .autoQuestions(request.getAutoQuestions())
+//                .autoQuestions(request.getAutoQuestions())
                 .build();
         keyRepository.save(keyEntity);
     }
