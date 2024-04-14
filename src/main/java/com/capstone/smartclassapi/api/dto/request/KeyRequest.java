@@ -1,5 +1,6 @@
 package com.capstone.smartclassapi.api.dto.request;
 
+import com.capstone.smartclassapi.domain.entity.enums.TypeKey;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,6 +14,6 @@ import java.util.List;
 @NoArgsConstructor
 public class KeyRequest {
     private Long keyCode;
-    private String typeKey;
+    private TypeKey typeKey;
     private List<AutoQuestionRequest> autoQuestions;
 }
