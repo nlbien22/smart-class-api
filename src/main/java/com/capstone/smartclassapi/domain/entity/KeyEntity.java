@@ -1,5 +1,6 @@
 package com.capstone.smartclassapi.domain.entity;
 
+import com.capstone.smartclassapi.domain.entity.enums.TypeKey;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,7 +25,7 @@ public class KeyEntity {
     private Long keyCode;
 
     @Enumerated(EnumType.STRING)
-    private String typeKey;
+    private TypeKey typeKey;
 
     @OneToMany(mappedBy = "key", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<AutoQuestionEntity> autoQuestions;
