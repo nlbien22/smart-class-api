@@ -43,3 +43,9 @@ server:
     key-store: classpath:keystore/smart-class-api.jks
     key-store-type: JKS
     key-store-password: ${KEY_PASSWORD}
+
+firebase:
+  bucket-name: ${BUCKET_NAME}
+  faces-image-url: ${FACE_IMAGE_URL}
+
+  graded-image-url: ${GRADED_IMAGE_URL}
