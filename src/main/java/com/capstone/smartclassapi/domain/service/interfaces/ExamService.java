@@ -3,6 +3,7 @@ package com.capstone.smartclassapi.domain.service.interfaces;
 import com.capstone.smartclassapi.api.dto.request.ExamRequest;
 import com.capstone.smartclassapi.api.dto.response.AllExamsResponse;
 import com.capstone.smartclassapi.api.dto.response.ExamResponse;
+import com.capstone.smartclassapi.domain.entity.ExamEntity;
 
 public interface ExamService {
     ExamResponse getExam(Long examId);
@@ -28,5 +29,8 @@ public interface ExamService {
     void updateExamOfClass(Long classId, Long examId, ExamRequest examRequest);
     void deleteExam(Long examId);
     void deleteExamOfClass(Long classId, Long examId);
+    void deleteAllExamsOfClass(Long classId);
+    void deleteAllExams();
 
+    ExamEntity getExamEntity(Long examId);
 }

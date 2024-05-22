@@ -58,4 +58,11 @@ public class ExamInClassController implements ExamInClassControllerOpenApi {
         examService.deleteExamOfClass(classId, examId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @DeleteMapping
+    @Override
+    public ResponseEntity<?> deleteAllExamsOfClass(@PathVariable Long classId) {
+        examService.deleteAllExamsOfClass(classId);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

@@ -6,18 +6,23 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class KeyResponse {
-    private Long keyId;
-    private Long keyCode;
-
+    private String keyId;
+    private String keyCode;
+    private List<Integer> type;
+    private List<Integer> answers;
+    private List<int[]> answer;
     public static KeyResponse fromEntity(KeyEntity keyEntity) {
         return KeyResponse.builder()
-                .keyId(keyEntity.getKeyId())
-                .keyCode(keyEntity.getKeyCode())
+                .keyId(keyEntity.getKeyId().toString())
+                .keyCode(keyEntity.getKeyCode().toString())
+
                 .build();
     }
 }

@@ -43,4 +43,8 @@ public class ClassEntity {
     public void prePersist() {
         createdAt = LocalDateTime.now();
     }
+
+    public String toString() {
+        return "ClassEntity(classId=" + this.getClassId() + ", className=" + this.getClassName() + ", createdAt=" + this.getCreatedAt() + ")";
+    }
 }

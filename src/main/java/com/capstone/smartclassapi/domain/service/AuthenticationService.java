@@ -45,6 +45,7 @@ public class AuthenticationService {
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
+        System.out.println(userRepository.findByUserId(3L).get().getEmail());
         UserEntity user = userRepository.findByEmail(request.getEmail())
                 .orElseThrow(() -> new ResourceNotFoundException("Email or password is incorrect"));
 

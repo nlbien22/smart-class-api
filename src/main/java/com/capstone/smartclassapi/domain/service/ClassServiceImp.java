@@ -100,4 +100,16 @@ public class ClassServiceImp implements ClassService {
     public boolean isTeacherOfClass(Long classId) {
         return classRepository.findByClassId(userServiceImp.getCurrentUserId(), classId).isPresent();
     }
+
+    @Override
+    public void deleteAllClasses() {
+        if (!classRepository.findAllClassOfUserByName(userServiceImp.getCurrentUserId(), "", PageRequest.of(0, 1)).isEmpty())
+            classRepository.deleteAllClassByUserId(userServiceImp.getCurrentUserId());
+    }
+
+    @Override
+    public ClassEntity findClassById(Long classId) {
+        return classRepository.findByClassId(userServiceImp.getCurrentUserId(), classId)
+                .orElseThrow(() -> new ResourceNotFoundException("Class not found"));
+    }
 }

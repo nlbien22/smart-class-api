@@ -1,8 +1,9 @@
 package com.capstone.smartclassapi.domain.repository;
 import com.capstone.smartclassapi.domain.entity.ClassEntity;
-import org.springframework.data.domain.Page;
+import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -41,4 +42,17 @@ public interface ClassRepository extends JpaRepository<ClassEntity, Long> {
         WHERE user_id = :userId AND LOWER(class_name) LIKE LOWER(CONCAT('%', :keyword, '%'))
         """, nativeQuery = true)
     long countByClassName(Long userId, @Param("keyword") String keyword);
+
+    // Delete all classes of a user with the given user id
+    @Transactional
+    @Modifying
+    @Query(value = """
+            DELETE FROM class c
+            WHERE c.class_id IN (
+                SELECT uc.class_id
+                FROM user_class uc
+                WHERE uc.user_id = :userId
+            )
+            """, nativeQuery = true)
+    void deleteAllClassByUserId(Long userId);
 }

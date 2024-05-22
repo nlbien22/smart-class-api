@@ -18,7 +18,7 @@ public interface KeyRepository extends JpaRepository<KeyEntity, Long>{
             INNER JOIN exam_key ek ON k.key_id = ek.key_id
             WHERE ek.exam_id = :examId AND k.key_code = :keyCode
             """, nativeQuery = true)
-    Optional<KeyEntity> findByKeyCode(Long examId, Long keyCode);
+    Optional<KeyEntity> findByKeyCode(Long examId, String keyCode);
 
     @Query(value = """
             SELECT k.* FROM key k
@@ -30,15 +30,22 @@ public interface KeyRepository extends JpaRepository<KeyEntity, Long>{
     @Query(value = """
             SELECT k.* FROM key k
             INNER JOIN exam_key ek ON k.key_id = ek.key_id
-            WHERE ek.exam_id = :examId AND LOWER(e.key_code) LIKE LOWER(CONCAT('%', :keyword, '%'))
+            WHERE ek.exam_id = :examId
             """, nativeQuery = true)
-    List<KeyEntity> findAllKeysByExamId(Long examId, String keyword, Pageable pageable);
+    List<KeyEntity> findAllKeysByExamId(Long examId, Pageable pageable);
 
     @Query(value = """
             SELECT count(k)
             FROM key k
             INNER JOIN exam_key ek ON k.key_id = ek.key_id
-            WHERE ek.exam_id = :examId AND LOWER(k.key_code) LIKE LOWER(CONCAT('%', :keyword, '%'))
+            WHERE ek.exam_id = :examId
             """, nativeQuery = true)
-    long countKeyByExamId(Long examId, String keyword);
+    long countKeyByExamId(Long examId);
+
+//    @Query(value = """
+//            SELECT  FROM key k
+//            INNER JOIN auto_question aq ON k.key_id = aq.key_id
+//            WHERE aq.exam_id = :examId AND k.key_code = :keyCode
+//            """, nativeQuery = true)
+//    Optional<?> findKeyResponse(Long examId, Long keyCode);
 }

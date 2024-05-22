@@ -22,4 +22,7 @@ public interface ClassService {
     void updateClass(Long classId, ClassRequest request);
     void deleteClass(Long classId);
     boolean isTeacherOfClass(Long classId);
+    void deleteAllClasses();
+
+    ClassEntity findClassById(Long classId);
 }

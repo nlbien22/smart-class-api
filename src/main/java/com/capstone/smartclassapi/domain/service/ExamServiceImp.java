@@ -29,6 +29,7 @@ public class ExamServiceImp implements ExamService {
 
     @Override
     public ExamResponse getExam(Long examId) {
+//        System.out.println(examRepository.findExamByUserId(userServiceImp.getCurrentUser().getUserId(), examId));
         return ExamResponse.fromEntity(examRepository.findExamByUserId(userServiceImp.getCurrentUser().getUserId(), examId)
                 .orElseThrow(() -> new ResourceNotFoundException("Exam not found")));
     }
@@ -145,6 +146,23 @@ public class ExamServiceImp implements ExamService {
         ExamEntity exam = examRepository.findExamByClassId(classId, examId)
                 .orElseThrow(() -> new ResourceNotFoundException("Exam not found"));
         examRepository.delete(exam);
+    }
+
+    @Override
+    public void deleteAllExamsOfClass(Long classId) {
+        classServiceImp.getClass(classId);
+        examRepository.deleteAllExamsByClassId(userServiceImp.getCurrentUserId(), classId);
+    }
+
+    @Override
+    public void deleteAllExams() {
+
+    }
+
+    @Override
+    public ExamEntity getExamEntity(Long examId) {
+        return examRepository.findById(examId)
+                .orElseThrow(() -> new ResourceNotFoundException("Exam not found"));
     }
 
     public ExamEntity update(ExamEntity examEntity, ExamRequest examRequest) {

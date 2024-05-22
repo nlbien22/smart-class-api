@@ -30,7 +30,7 @@ public class ExamEntity {
     private Date examDate;
 
     @Column(name = "point_exam", nullable = false)
-    private Integer pointExam;
+    private Float pointExam;
 
     @Column(name = "num_exam", nullable = false)
     private Integer numExam;

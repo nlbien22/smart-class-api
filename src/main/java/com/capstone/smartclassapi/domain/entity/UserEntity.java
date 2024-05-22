@@ -34,10 +34,10 @@ public class UserEntity implements UserDetails {
     private String email;
 
     @Column(name = "user_code")
-    private Long userCode;
+    private String userCode;
 
     @Column(name = "image_key")
-    private Long imageKey;
+    private String imageKey;
 
     @Column(name = "password")
     private String password;
@@ -68,7 +68,6 @@ public class UserEntity implements UserDetails {
     @PrePersist
     public void init() {
         this.createdAt = LocalDateTime.now();
-        this.role = Role.TEACHER;
     }
 
     @Override

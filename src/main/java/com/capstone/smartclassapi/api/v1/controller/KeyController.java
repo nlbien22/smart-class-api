@@ -4,7 +4,6 @@ import com.capstone.smartclassapi.api.dto.request.KeyRequest;
 import com.capstone.smartclassapi.api.dto.response.KeyResponse;
 import com.capstone.smartclassapi.api.openapi.controller.KeyControllerOpenApi;
 import com.capstone.smartclassapi.domain.constants.DefaultListParams;
-import com.capstone.smartclassapi.domain.entity.KeyEntity;
 import com.capstone.smartclassapi.domain.service.interfaces.KeyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,12 +17,13 @@ public class KeyController implements KeyControllerOpenApi {
     private final KeyService keyService;
     private static final String DEFAULT_SORT_VALUE = "create_at";
 
+    @GetMapping("/{keyId}")
     @Override
     public ResponseEntity<?> getKey(@PathVariable Long examId,@PathVariable Long keyId) {
-        KeyResponse keyRes = KeyResponse.fromEntity(keyService.getKey(examId, keyId));
-        return ResponseEntity.ok(keyRes);
+        return ResponseEntity.ok(keyService.getKeyResponse(examId, keyId));
     }
 
+    @GetMapping
     @Override
     public ResponseEntity<?> getAllKeys(
         @PathVariable Long examId,
@@ -36,18 +36,21 @@ public class KeyController implements KeyControllerOpenApi {
         return ResponseEntity.ok(keyService.getAllKeys(examId, page, size, keyword, sortType, sortValue));
     }
 
+    @PostMapping
     @Override
     public ResponseEntity<?> createKey(@PathVariable Long examId, @RequestBody KeyRequest key) {
         keyService.createKey(examId, key);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+    @PutMapping("/{keyId}")
     @Override
     public ResponseEntity<?> updateKey(@PathVariable Long examId, @PathVariable Long keyId, @RequestBody KeyRequest key) {
         keyService.updateKey(examId, keyId, key);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @DeleteMapping("/{keyId}")
     @Override
     public ResponseEntity<?> deleteKey(@PathVariable Long examId, @PathVariable Long keyId) {
         keyService.deleteKey(examId, keyId);

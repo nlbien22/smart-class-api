@@ -17,21 +17,24 @@ public class ExamResponse {
     private Long examId;
     private String examName;
     private Date examDate;
-    private Integer pointExam;
+    private Float pointExam;
     private Integer numExam;
-    private TypeExamResponse typeExam;
+    private Long typeExam;
+    private Long classId;
 
     public static ExamResponse fromEntity(ExamEntity examEntity) {
-        return ExamResponse.builder()
+        ExamResponse.ExamResponseBuilder builder = ExamResponse.builder()
                 .examId(examEntity.getExamId())
                 .examName(examEntity.getExamName())
                 .examDate(examEntity.getExamDate())
                 .pointExam(examEntity.getPointExam())
                 .numExam(examEntity.getNumExam())
-                .typeExam(TypeExamResponse.builder()
-                        .typeExamId(examEntity.getTypeExam().getTypeExamId())
-                        .typeExamName(examEntity.getTypeExam().getTypeExamName())
-                        .build())
-                .build();
+                .typeExam(examEntity.getTypeExam().getTypeExamId());
+
+        if (examEntity.getClassEntity() != null) {
+            builder.classId(examEntity.getClassEntity().getClassId());
+        }
+
+        return builder.build();
     }
 }

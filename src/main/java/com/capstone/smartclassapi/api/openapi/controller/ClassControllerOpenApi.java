@@ -25,4 +25,7 @@ public interface ClassControllerOpenApi {
 
     @Operation(summary = "Delete a class")
     ResponseEntity<?> deleteClass(Long id);
+
+    @Operation(summary = "Delete all class")
+    ResponseEntity<?> deleteAllClasses();
 }

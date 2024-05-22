@@ -1,6 +1,8 @@
 package com.capstone.smartclassapi.domain.entity;
 
 import com.capstone.smartclassapi.domain.entity.enums.TypeKey;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,7 +24,7 @@ public class KeyEntity {
     private Long keyId;
 
     @Column(name = "key_code", nullable = false)
-    private Long keyCode;
+    private String keyCode;
 
     @Enumerated(EnumType.STRING)
     private TypeKey typeKey;
@@ -40,11 +42,22 @@ public class KeyEntity {
     )
     private List<ExamEntity> exams;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "key")
+    @OneToMany(mappedBy = "key", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<GradedEntity> gradedEntities;
 
     @PrePersist
     public void prePersist() {
         createdAt = LocalDateTime.now();
+    }
+
+    public String toString(){
+        String serialized ="";
+        try{
+            ObjectMapper objectMapper = new ObjectMapper();
+            serialized = objectMapper.writeValueAsString(this);
+        }catch(JsonProcessingException jpe){
+            jpe.printStackTrace();
+        }
+        return serialized;
     }
 }

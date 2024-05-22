@@ -7,6 +7,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -30,6 +32,9 @@ public class AnswerEntity {
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "question_id")
     private QuestionEntity question;
+
+    @OneToMany(mappedBy = "answer", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<AutoAnswerEntity> autoAnswers;
 
     @PrePersist
     public void prePersist() {

@@ -53,4 +53,10 @@ public class ClassController implements ClassControllerOpenApi {
         classService.deleteClass(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @DeleteMapping("")
+    public ResponseEntity<?> deleteAllClasses() {
+        classService.deleteAllClasses();
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

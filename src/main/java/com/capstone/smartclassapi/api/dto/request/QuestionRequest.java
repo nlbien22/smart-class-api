@@ -16,9 +16,8 @@ import java.util.List;
 public class QuestionRequest {
     @Schema(description = "Question content", example = "What is the capital of France?")
     private String questionContent;
-//    @Schema(description = "Question image", example = "https://www.google.com/image.jpg")
-//    private String questionImage;
     @Schema(description = "Question level", example = "EASY")
     private Level level;
+    @Schema(description = "List of answers", example = "[{answerId: 1, answerContent: Paris, isCorrect: true}, {answerId: 2, answerContent: London, isCorrect: false}, {answerId: 3, answerContent: Berlin, isCorrect: false}, {answerId: 4, answerContent: Madrid, isCorrect: false}]")
     private List<AnswerRequest> answers;
 }

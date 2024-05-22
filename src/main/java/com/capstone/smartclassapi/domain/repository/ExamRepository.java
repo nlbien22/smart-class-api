@@ -1,8 +1,10 @@
 package com.capstone.smartclassapi.domain.repository;
 
 import com.capstone.smartclassapi.domain.entity.ExamEntity;
+import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
@@ -52,4 +54,16 @@ public interface ExamRepository extends JpaRepository<ExamEntity, Long> {
             WHERE e.class_id = :classId AND LOWER(e.exam_name) LIKE LOWER(CONCAT('%', :keyword, '%'))
             """, nativeQuery = true)
     long countExamNameByClassId(Long classId, String keyword);
+
+    @Transactional
+    @Modifying
+    @Query(value = """
+            DELETE FROM exam e
+            WHERE e.class_id = :classId AND e.exam_id IN (
+                SELECT ue.exam_id
+                FROM user_exam ue
+                WHERE ue.user_id = :userId
+            )
+            """, nativeQuery = true)
+    void deleteAllExamsByClassId(Long userId, Long classId);
 }

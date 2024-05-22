@@ -1,11 +1,7 @@
 package com.capstone.smartclassapi.api.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -24,7 +20,7 @@ public class ExamRequest {
     @Schema(description = "Exam date", example = "2021-10-10")
     private Date examDate;
     @Schema(description = "Exam point", example = "100")
-    private Integer pointExam;
+    private Float pointExam;
     @Schema(description = "Number of questions", example = "10")
     private Integer numExam;
     @Schema(description = "Type of exam id", example = "1")

@@ -10,7 +10,7 @@ public interface QuestionControllerOpenApi {
     @Operation(summary = "Get a question by clo and question id")
     ResponseEntity<?> getQuestion(Long cloId, Long questionId);
     @Operation(summary = "Get all questions by clo")
-    ResponseEntity<?> getAllQuestions(Long cloId);
+    ResponseEntity<?> getAllQuestions(Long cloId, int page, int size, String keyword, String sortType, String sortValue);
     @Operation(summary = "Create a question by clo")
     ResponseEntity<?> createQuestionAnswer(Long cloId, QuestionRequest request, MultipartFile multipartFile);
     @Operation(summary = "Create a list of questions by clo")
