@@ -1,2 +1,0 @@
-ALTER TABLE "graded"
-ALTER COLUMN "user_code" TYPE VARCHAR(255);

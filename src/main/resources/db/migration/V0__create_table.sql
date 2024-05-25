@@ -89,8 +89,8 @@ CREATE TABLE IF NOT EXISTS "user" (
     "phone_number" VARCHAR,
     "email" VARCHAR NOT NULL CHECK (LENGTH("email") BETWEEN 3 AND 50),
     "password" VARCHAR(255) NOT NULL CHECK (LENGTH("password") > 0),
-    "user_code" INTEGER,
-    "image_key" INTEGER,
+    "user_code" VARCHAR(6),
+    "image_key" VARCHAR(255),
     "role" user_role,
     "provider" user_provider,
     "created_at" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -146,7 +146,7 @@ CREATE TABLE IF NOT EXISTS "user_exam" (
 -- Create key table
 CREATE TABLE IF NOT EXISTS "key" (
     "key_id" SERIAL PRIMARY KEY,
-    "key_code" INTEGER NOT NULL CHECK ("key_code" > 0),
+    "key_code" VARCHAR(3),
     "type_key" type_key,
     "created_at" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
@@ -212,11 +212,11 @@ CREATE TABLE IF NOT EXISTS "auto_question" (
 -- Create Graded table
 CREATE TABLE IF NOT EXISTS "graded" (
     "graded_id" SERIAL PRIMARY KEY,
-    "user_code" INTEGER,
+    "user_code" VARCHAR(255),
     "key_id" INTEGER REFERENCES "key"("key_id") ON DELETE CASCADE,
     "score" FLOAT NOT NULL CHECK ("score" >= 0),
-    "image_key" INTEGER,
-    "name_key" INTEGER,
+    "image_key" VARCHAR(255),
+    "name_key" VARCHAR(255),
     "graded_date" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
